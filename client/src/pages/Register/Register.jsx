@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import './Register.css';
 import Navbar from "../../components/Navbar/Navbar.jsx";
-
+import API_URL from "../../config/api.js";
 const Register = () => {
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/v1/auth/sign-up", 
+        `${API_URL}/api/v1/auth/sign-up`, 
         formData,
         { withCredentials: true }
       );
