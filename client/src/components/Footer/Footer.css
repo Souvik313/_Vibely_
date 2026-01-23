@@ -1,0 +1,124 @@
+/* Footer Styling */
+.footer {
+  background: linear-gradient(
+    135deg,
+    #0f172a 0%,   /* slate-900 */
+    #020617 50%,  /* near-black */
+    #0f172a 100%
+  );
+  padding: 16px 24px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  box-shadow: 0 -4px 12px rgba(0, 85, 255, 0.15);
+  width: 100%;
+  position: relative;
+  z-index: 50;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+}
+
+/* Footer text */
+.footer p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Links container */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* Links */
+.footer-links a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 10px 16px; /* better tap target */
+  border-radius: 8px;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* Hover only affects desktop */
+@media (hover: hover) {
+  .footer-links a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .footer {
+    padding: 24px 16px;
+    gap: 16px;
+  }
+
+  .footer p {
+    font-size: 0.9rem;
+  }
+
+  .footer-links {
+    gap: 18px;
+  }
+
+  .footer-links a {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .footer-links {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-links a {
+    width: 100%;
+    max-width: 220px;
+    text-align: center;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .footer {
+    padding: 20px 12px;
+    gap: 12px;
+  }
+
+  .footer p {
+    font-size: 0.85rem;
+  }
+
+  .footer-links a {
+    font-size: 0.85rem;
+    padding: 10px 14px;
+  }
+}

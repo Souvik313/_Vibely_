@@ -1,0 +1,160 @@
+/* Container */
+.edit-profile-container {
+  max-width: 520px;
+  margin: 80px auto;
+  padding: 32px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+}
+
+/* Title */
+.edit-profile-container h2 {
+  margin-bottom: 24px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+  color: #111827;
+}
+
+/* Messages */
+.error-msg,
+.success-msg {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.error-msg {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.success-msg {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Form */
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Profile image section */
+.profile-pic-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-preview {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e5e7eb;
+}
+
+/* File input */
+.file-input {
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* Input groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-textarea {
+  resize: none;
+}
+
+/* Focus states */
+.form-input:focus,
+.form-textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+/* Actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* Buttons */
+.save-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease;
+  border: none;
+}
+
+/* Save */
+.save-btn {
+  background: #4f46e5;
+  color: white;
+}
+
+.save-btn:hover:not(:disabled) {
+  background: #4338ca;
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+  transform: translateY(-1px);
+}
+
+.save-btn:disabled {
+  background: #c7d2fe;
+  cursor: not-allowed;
+}
+
+/* Cancel */
+.cancel-btn {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.cancel-btn:hover {
+  background: #e5e7eb;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .edit-profile-container {
+    margin: 60px 16px;
+    padding: 24px;
+  }
+}

@@ -1,0 +1,141 @@
+.posts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.post-card {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  padding: 0;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+}
+
+.media-wrapper {
+  width: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+}
+
+.post-media {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border: none;
+  display: block;
+}
+
+iframe.post-media {
+  width: 100%;
+  height: 220px;
+  border: none;
+}
+
+.post-details {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.post-details-header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.poster-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid var(--border-light);
+}
+
+.post-content {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-details-footer {
+  margin-top: 8px;
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+}
+
+.poster-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.post-date {
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 768px) {
+  .posts-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .post-card {
+    border-radius: 8px;
+  }
+
+  .post-details {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .post-content {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .posts-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .post-media {
+    height: 180px;
+  }
+
+  .poster-image {
+    width: 36px;
+    height: 36px;
+  }
+}

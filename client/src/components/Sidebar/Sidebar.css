@@ -1,0 +1,179 @@
+.sidebar-components {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 280px;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  padding: 16px;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar-components.open {
+  transform: translateX(0);
+}
+.sidebar-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Floating toggle (sidebar closed) */
+.sidebar-toggle.floating {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 10px;
+  z-index: 1100;
+}
+
+.sidebar-toggle.floating:hover {
+  background-color: #f3f4f6;
+}
+
+/* Toggle inside sidebar header */
+.sidebar-toggle.inside {
+  font-size: 22px;
+  padding: 6px;
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 12px;
+}
+
+.sidebar-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 48px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #111827;
+  font-size: 15px;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sidebar-link:hover {
+  background-color: #f3f4f6;
+}
+.logout-btn {
+  color: #dc2626;
+}
+
+.logout-btn:hover {
+  background-color: #fee2e2;
+}
+.Followers,
+.following {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  margin: 16px 0 8px;
+}
+.follower-list,
+.following-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Subtle scrollbar */
+.follower-list::-webkit-scrollbar,
+.following-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.follower-list::-webkit-scrollbar-thumb,
+.following-list::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 8px;
+}
+.follower-details,
+.following-details {
+  border-radius: 8px;
+}
+
+.follower-profile,
+.following-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.follower-profile:hover,
+.following-profile:hover {
+  background-color: #f3f4f6;
+}
+.profile {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+.name {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sidebar-loading,
+.sidebar-empty {
+  font-size: 13px;
+  color: #6b7280;
+  padding: 6px 8px;
+}
+
+.error {
+  font-size: 13px;
+  color: #dc2626;
+  padding: 6px 8px;
+}
+hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 12px 0;
+}
+@media (min-width: 768px) {
+  .sidebar-toggle.floating {
+    display: none;
+  }
+}

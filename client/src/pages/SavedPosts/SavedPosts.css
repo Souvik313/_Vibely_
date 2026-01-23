@@ -1,0 +1,357 @@
+/* Main container */
+.saved-posts-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 16px 40px;
+  color: var(--text-primary);
+  min-height: calc(100vh - 200px);
+}
+
+/* Heading */
+.saved-posts-container h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Empty / loading / error states */
+.saved-posts-container p {
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 48px;
+  font-size: 1.1rem;
+  padding: 40px 20px;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  border: 1px dashed var(--border-light);
+}
+
+.saved-posts-container.error {
+  color: var(--danger);
+  padding: 40px 20px;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid var(--danger);
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* List */
+.saved-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Individual saved post */
+.saved-item {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+.saved-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary, #3b82f6), var(--secondary, #ec4899));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.saved-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary, #3b82f6);
+}
+
+.saved-item:hover::before {
+  opacity: 1;
+}
+
+/* Clickable body */
+.saved-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.saved-link:hover {
+  opacity: 0.9;
+}
+
+/* Post content */
+.saved-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Caption */
+.saved-caption {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  word-break: break-word;
+  font-weight: 500;
+}
+
+/* Media (image/video) */
+.saved-media {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: var(--bg-tertiary);
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.saved-item:hover .saved-media {
+  transform: scale(1.01);
+}
+
+/* Divider */
+.saved-item hr {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: 14px 0;
+  opacity: 0.6;
+}
+
+/* User details (scoped to avoid profile page clash) */
+.saved-item .post-user-details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Scoped profile picture */
+.saved-item .post-user-details .profile-picture {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border-light);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.saved-item .post-user-details .profile-picture:hover {
+  transform: scale(1.1);
+}
+
+/* Username */
+.saved-item .post-user-details .name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.saved-item .post-user-details:hover .name {
+  color: var(--primary, #3b82f6);
+}
+
+/* Unsave button */
+.unsave-btn {
+  background: linear-gradient(135deg, var(--danger, #ef4444), #dc2626);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.unsave-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: left 0.3s ease;
+}
+
+.unsave-btn:hover::before {
+  left: 100%;
+}
+
+.unsave-btn:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Actions */
+.saved-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+  padding-top: 8px;
+}
+
+.unsave-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+}
+
+@media (max-width: 480px) {
+  .saved-posts-container {
+    margin: 12px auto;
+    padding: 0 8px 24px;
+  }
+
+  .saved-posts-container h2 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+
+  .saved-list {
+    gap: 12px;
+  }
+
+  .saved-item {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .saved-body {
+    gap: 10px;
+  }
+
+  .saved-caption {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .saved-media {
+    max-height: 250px;
+  }}
+/* Responsive */
+@media (max-width: 768px) {
+  .saved-posts-container {
+    margin: 16px auto;
+    padding: 0 12px 32px;
+  }
+
+  .saved-posts-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+
+  .saved-list {
+    gap: 16px;
+  }
+
+  .saved-item {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .saved-media {
+    max-height: 300px;
+    border-radius: 10px;
+  }
+
+  .saved-caption {
+    font-size: 0.9rem;
+  }
+
+  .saved-item .post-user-details {
+    gap: 10px;
+  }
+
+  .saved-item .post-user-details .profile-picture {
+    width: 36px;
+    height: 36px;
+  }
+
+  .saved-item .post-user-details .name {
+    font-size: 0.75rem;
+  }
+
+  .unsave-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .saved-posts-container {
+    margin: 12px auto;
+    padding: 0 8px 24px;
+  }
+
+  .saved-posts-container h2 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+
+  .saved-list {
+    gap: 12px;
+  }
+
+  .saved-item {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .saved-body {
+    gap: 10px;
+  }
+
+  .saved-caption {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .saved-media {
+    max-height: 250px;
+    border-radius: 8px;
+  }
+
+  .saved-item .post-user-details .profile-picture {
+    width: 32px;
+    height: 32px;
+  }
+
+  .saved-item .post-user-details .name {
+    font-size: 0.7rem;
+  }
+
+  .unsave-btn {
+    padding: 6px 10px;
+    font-size: 0.7;
+  }
+}
