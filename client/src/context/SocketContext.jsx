@@ -1,7 +1,15 @@
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useEffect, useRef, useState, useContext } from "react";
 import { io } from "socket.io-client";
 
 export const SocketContext = createContext(null);
+
+export const useSocket = () => {
+  const context = useContext(SocketContext);
+  if (!context) {
+    throw new Error("useSocket must be used within a SocketProvider");
+  }
+  return context;
+};
 
 export const SocketProvider = ({ user, children }) => {
   const socketRef = useRef(null);
