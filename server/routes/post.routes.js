@@ -15,7 +15,7 @@ postRouter.post(
   authorize,
   createNewPost
 );
-postRouter.get("/posts/:id" , authorize , getAllPostsForUser);
+postRouter.get("/posts/:id" , getAllPostsForUser);
 postRouter.get("/:id", getSinglePost);
 postRouter.patch("/:id" , authorize , editPost);
 postRouter.delete("/:id" , authorize , deletePost);
