@@ -80,14 +80,16 @@ const PostCard = () => {
     }, [post]);
 
     useEffect(() => {
-        if(!post) return;
+        if (!post) return;
 
-        if(post.dislikes && post.dislikes.includes(localStorage.getItem("userId").toString())){
-            setDislikePost(true);
-        } else {
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
             setDislikePost(false);
+            return;
         }
-    } , [post]);
+        setDislikePost(post.dislikes?.includes(userId));
+    }, [post]);
+
 
     useEffect(() => {
         if(!post) return;
@@ -132,20 +134,19 @@ const PostCard = () => {
     } , [post , comments])
 
     useEffect(() => {
-        if(!post || !comments) return;
-        const userId = localStorage.getItem("userId");
-        if(!userId) return;
+        if (!post || !comments) return;
 
-        try{
-            if(comments && comments.some(comment => comment.dislikes.includes(userId))){
-                setCommentDisliked(true);
-            } else {
-                setCommentDisliked(false);
-            }
-        } catch(error){
-            console.log(error);
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+            setCommentDisliked(false);
+            return;
         }
-    } , [post , comments])
+
+        setCommentDisliked(
+            comments.some(comment => comment.dislikes?.includes(userId))
+        );
+    }, [post, comments]);
+
 
     const extractYouTubeID = (url) => {
     const regExp = 
@@ -558,7 +559,16 @@ const PostCard = () => {
                                         <div className="comment-actions">
                                             <img src={like_icon} alt="" className="like-comment" onClick={handleLikeComment}/>
                                             <span className="numLikes">{comment.likes.length || 0}</span>
-                                            <img src={comment.dislikes.includes(userId) ? disliked_icon : dislike_icon} alt="" className="dislike-comment" onClick={() => handleDislikeComment(comment._id)}/>
+                                            <img
+                                                src={
+                                                    userId && comment.dislikes?.includes(userId)
+                                                    ? disliked_icon
+                                                    : dislike_icon
+                                                }
+                                                alt=""
+                                                className="dislike-comment"
+                                                onClick={() => handleDislikeComment(comment._id)}
+                                            />
                                             <span className="numDislikes">{comment.dislikes.length || 0}</span>
                                             <button className="reply-btn" onClick={() =>
                                                 {
