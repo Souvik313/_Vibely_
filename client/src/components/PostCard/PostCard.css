@@ -618,6 +618,137 @@
     word-wrap: break-word;
 }
 
+@media (max-width: 600px) {
+    .post-container {
+        width: 100%;
+        padding: 16px;
+        border-radius: 0;
+    }
+
+    .post-card-container {
+        padding: 0;
+    }
+
+    /* Media */
+    .media-wrapper img,
+    .media-wrapper video,
+    .media-wrapper iframe {
+        max-height: 260px;
+        border-radius: 8px;
+    }
+
+    /* Post text */
+    .post-content {
+        font-size: 16px;
+    }
+
+    /* Meta section stacks nicely */
+    .post-meta {
+        gap: 12px;
+    }
+
+    .creator-pic {
+        width: 40px;
+        height: 40px;
+    }
+
+    .creator {
+        font-size: 14px;
+    }
+
+    .followers {
+        font-size: 12px;
+    }
+
+    .follow-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+
+    /* Like / Dislike row */
+    .like,
+    .dislike {
+        width: 20px;
+        height: 20px;
+    }
+
+    .num-likes,
+    .numDislikes {
+        font-size: 13px;
+    }
+
+    /* Three dots */
+    .three-dots {
+        width: 26px;
+        height: 26px;
+        padding: 6px;
+    }
+
+    /* Comments */
+    .comments-section h3 {
+        font-size: 16px;
+    }
+
+    .commenter-image {
+        width: 32px;
+        height: 32px;
+    }
+
+    .comment-text {
+        font-size: 13.5px;
+    }
+
+    .comment-actions {
+        gap: 10px;
+    }
+
+    /* Replies */
+    .reply-matter {
+        margin-left: 42px;
+    }
+
+    .reply-user-picture {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Delete post button */
+    .delete-post-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+    .post-container {
+        width: 92%;
+        padding: 20px;
+    }
+
+    .media-wrapper img,
+    .media-wrapper video,
+    .media-wrapper iframe {
+        max-height: 360px;
+    }
+
+    .post-content {
+        font-size: 17px;
+    }
+
+    .creator-pic {
+        width: 46px;
+        height: 46px;
+    }
+
+    .follow-btn {
+        padding: 7px 14px;
+        font-size: 14px;
+    }
+
+    .reply-matter {
+        margin-left: 48px;
+    }
+}
+
 /* =============================
          ANIMATIONS
 ============================= */
