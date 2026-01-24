@@ -524,7 +524,6 @@ const PostCard = () => {
                         </div>
 
                     </div>
-                    <hr />
                     <div className="comments-section">
                         <h3>{numComments} Comments</h3>
                         <div className="add-comment">
