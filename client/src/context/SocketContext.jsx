@@ -1,11 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-import API_URL from "../config/api.js";
-const SOCKET_URL = API_URL;
-const SocketContext = createContext();
+
+export const SocketContext = createContext(null);
 
 export const SocketProvider = ({ user, children }) => {
-  const [socket, setSocket] = useState(null);
+  const socketRef = useRef(null);
   const [onlineUsers, setOnlineUsers] = useState(new Set());
 
   console.log("🔌 SocketProvider - user:", user);
@@ -16,33 +15,37 @@ export const SocketProvider = ({ user, children }) => {
       return;
     }
 
+    if (socketRef.current) {
+      console.log("⚠️ Socket already exists, skipping init");
+      return;
+    }
+
     console.log("🚀 Initializing socket for user:", user._id);
 
-    const socketInstance = io(SOCKET_URL, {
+    const socket = io(SOCKET_URL, {
       withCredentials: true,
+      transports: ["websocket"],
     });
 
-    console.log("🔗 Socket instance created:", socketInstance.id);
-    setSocket(socketInstance);
+    socketRef.current = socket;
 
-    // 🔐 setup
-    console.log("📤 Emitting setup event with userId:", user._id);
-    socketInstance.emit("setup", user._id);
+    socket.on("connect", () => {
+      console.log("🔗 Socket connected with id:", socket.id);
+      console.log("📤 Emitting setup event with userId:", user._id);
+      socket.emit("setup", user._id);
+    });
 
-    // 📦 full list (on connect)
-    socketInstance.on("onlineUsers", (users) => {
+    socket.on("onlineUsers", (users) => {
       console.log("📡 Received onlineUsers:", users);
       setOnlineUsers(new Set(users));
     });
 
-    // 🟢 single user online
-    socketInstance.on("userOnline", (userId) => {
+    socket.on("userOnline", (userId) => {
       console.log("✅ User came online:", userId);
       setOnlineUsers((prev) => new Set([...prev, userId]));
     });
 
-    // 🔴 single user offline
-    socketInstance.on("userOffline", (userId) => {
+    socket.on("userOffline", (userId) => {
       console.log("🔴 User went offline:", userId);
       setOnlineUsers((prev) => {
         const updated = new Set(prev);
@@ -53,16 +56,17 @@ export const SocketProvider = ({ user, children }) => {
 
     return () => {
       console.log("🔌 Disconnecting socket");
-      socketInstance.disconnect();
+      socket.disconnect();
+      socketRef.current = null;
     };
-  }, [user]);
+  }, [user?._id]);
 
   return (
-    <SocketContext.Provider value={{ socket, onlineUsers }}>
+    <SocketContext.Provider
+      value={{ socket: socketRef.current, onlineUsers }}
+    >
       {children}
     </SocketContext.Provider>
   );
 };
-
-export const useSocket = () => useContext(SocketContext);
 
