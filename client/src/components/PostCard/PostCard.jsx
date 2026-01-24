@@ -18,6 +18,7 @@ const PostCard = () => {
     const { postId } = useParams();
     const navigate = useNavigate();
     const userId = localStorage.getItem("userId");
+    const [authMessage, setAuthMessage] = useState("");
     const [post , setPost] = useState(null);
     const [loading , setLoading] = useState(true);
     const [showDropdown , setShowDropdown] = useState(false);
@@ -147,6 +148,14 @@ const PostCard = () => {
         );
     }, [post, comments]);
 
+    const requireLogin = (message) => {
+        if (!localStorage.getItem("token")) {
+            setAuthMessage(message);
+            setTimeout(() => setAuthMessage(""), 3000);
+            return false;
+        }
+        return true;
+    };
 
     const extractYouTubeID = (url) => {
     const regExp = 
@@ -234,82 +243,68 @@ const PostCard = () => {
         }
     }
 
-    const handleAddLike = async() => {
-        const userId = localStorage.getItem("userId");
-        if(!userId) return;
-        try{
-            await axios.post(`${API_URL}/api/v1/posts/like/${post._id}` , {} , {
+    const handleAddLike = async () => {
+        if (!requireLogin("Please login to like this post")) return;
+
+        try {
+            await axios.post(`${API_URL}/api/v1/posts/like/${post._id}`, {}, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
             });
-            alert("Liked post!")
             setLikePost(true);
             setDislikePost(false);
-        } catch(error){
-            setLikePost(false);
+        } catch (error) {
             console.log(error);
-            alert("Failed to like post!!");
         }
-    }
+    };
 
-    const handleAddDislike = async() => {
-            const userId = localStorage.getItem("userId");
-            if(!userId) return;
-            try{
-                await axios.post(`${API_URL}/api/v1/posts/dislike/${post._id}` , {} , {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
-                    }
-                })
-                alert("Disliked post successfully");
-                setDislikePost(true);
-                setLikePost(false);
-            } catch(error){
-                setDislikePost(false);
-                console.log(error);
-                alert(error.message);
-            }
-    }
 
-    const handleSavePost = async() => {
-        const userId = localStorage.getItem("userId");
-        if(!userId) return;
+    const handleAddDislike = async () => {
+        if (!requireLogin("Please login to dislike this post")) return;
 
         try {
-            await axios.post(`${API_URL}/api/v1/users/save/${post._id}` , {} , {
+            await axios.post(`${API_URL}/api/v1/posts/dislike/${post._id}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            });
+            setDislikePost(true);
+            setLikePost(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleSavePost = async () => {
+        if (!requireLogin("Please login to save this post")) return;
+
+        try {
+            await axios.post(`${API_URL}/api/v1/users/save/${post._id}`, {}, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
             });
             setSavePost(true);
-            alert("Saved post successfully!")
         } catch (error) {
-            console.log(error.message);
-            alert("Failed to save post!!");
+            console.log(error);
         }
-    }
+    };
 
-    const handleUnsavePost = async() => {
-        if(!post) return;
-        const userId = localStorage.getItem("userId");
-        if(!userId) {
-            alert("You are not logged in!")
-            navigate("/login");
-        }
-        try{
-            await axios.delete(`${API_URL}/api/v1/users/unsave/${post._id}` , {
+    const handleUnsavePost = async () => {
+        if (!requireLogin("Please login to unsave this post")) return;
+
+        try {
+            await axios.delete(`${API_URL}/api/v1/users/unsave/${post._id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
             });
             setSavePost(false);
-            alert("Removed post from saved posts!");
-        } catch(error) {
+        } catch (error) {
             console.log(error);
-            alert("Error unsaving post!!")
         }
-    }
+    };
 
     const handleDeleteComment = (commentId) => {
         if(!post) return;
@@ -509,6 +504,12 @@ const PostCard = () => {
 
                         <img src={likePost ? liked_icon : like_icon} alt="" className="like" onClick={handleAddLike}/><span className="num-likes">{post.likesCount}</span>
                         <img src={dislikePost ? disliked_icon : dislike_icon} alt="" className="dislike" onClick={handleAddDislike}/><span className="numDislikes">{post.dislikesCount}</span>
+                        {authMessage && (
+                            <p style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>
+                                {authMessage}
+                            </p>
+                        )}
+
                         <div className="post-options">
                                 <img src={three_dots_icon} alt="" className="three-dots" onClick={() => setThreeDotsClicked(prevState => !prevState)}/>
                                 {threeDotsClicked && (
