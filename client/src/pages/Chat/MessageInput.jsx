@@ -8,7 +8,6 @@ const MessageInput = ({ conversationId, onSend }) => {
     if (!text.trim()) return;
     try{
         if (onSend) {
-          // use the provided callback from useChat (preferred)
           await onSend(text);
         } else {
           if (!conversationId) {
