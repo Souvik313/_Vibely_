@@ -1,21 +1,28 @@
 import { useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import API_URL from "../../config/api.js";
-const MessageInput = () => {
+const MessageInput = ({ conversationId, onSend }) => {
   const [text, setText] = useState("");
-  const {conversationId} = useParams();
 
   const handleSend = async() => {
     if (!text.trim()) return;
     try{
-        const response = await axios.post(`${API_URL}/api/v1/messages/` , {conversationId : conversationId , text: text} , {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
-        });
-        if(response.data.success){
-            alert("Message sent successfully!");
+        if (onSend) {
+          // use the provided callback from useChat (preferred)
+          await onSend(text);
+        } else {
+          if (!conversationId) {
+            console.error("No conversationId available to send message.");
+            return;
+          }
+          const response = await axios.post(`${API_URL}/api/v1/messages/` , {conversationId : conversationId , text: text} , {
+              headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`
+              }
+          });
+          if(response.data.success){
+              alert("Message sent successfully!");
+          }
         }
     } catch(error){
         console.log(error);
