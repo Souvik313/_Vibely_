@@ -42,7 +42,7 @@ export const useChat = (conversationId) => {
     socket.emit("joinConversation", conversationId);
 
     const handleReceiveMessage = (message) => {
-      if (message.conversation === conversationId) {
+      if (message.conversation.toString() === conversationId.toString()) {
         setMessages((prev) => [...prev, message]);
       }
     };
@@ -69,6 +69,7 @@ export const useChat = (conversationId) => {
       setMessages((prev) => [...prev, data.data]);
 
       socket.emit("newMessage", data.data);
+      return data.data;
     } catch (err) {
       console.error("Failed to send message", err);
     }
