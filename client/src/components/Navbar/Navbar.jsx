@@ -47,7 +47,7 @@ const Navbar = ({onSearch}) => {
                         <Link to="/create-post">Create post</Link>
                         {token && userId 
                             ? <Link to={`/profile/${userId}`}>Profile</Link>
-                            : <Link to="/register">Create account</Link>
+                            : <Link to="/register">Join</Link>
                         }
                     </li>
                 </ul>
