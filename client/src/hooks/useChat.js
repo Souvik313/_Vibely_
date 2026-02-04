@@ -60,16 +60,18 @@ export const useChat = (conversationId) => {
     if (!conversationId || !token) return;
 
     try {
-      const { data } = await sendMessage({
-        conversationId,
-        text,
-      });
+      const { data } = await sendMessage({ conversationId, text });
 
-      // optimistic update
-      setMessages((prev) => [...prev, data.data]);
+  console.log("📤 Sent message:", data.data);
 
-      socket.emit("newMessage", data.data);
-      return data.data;
+  setMessages((prev) => {
+    console.log("🧠 UI append (sender):", [...prev, data.data]);
+    return [...prev, data.data];
+  });
+
+  socket.emit("newMessage", data.data);
+
+  return data.data;
     } catch (err) {
       console.error("Failed to send message", err);
     }
