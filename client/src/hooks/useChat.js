@@ -42,7 +42,14 @@ export const useChat = (conversationId) => {
     socket.emit("joinConversation", conversationId);
 
     const handleReceiveMessage = (message) => {
-      if (message.conversation.toString() === conversationId.toString()) {
+      // message.conversation might be an ObjectId, or a populated object { _id }
+      const msgConversationId =
+        message?.conversation?._id ?? message?.conversation ?? null;
+
+      if (
+        msgConversationId &&
+        msgConversationId.toString() === conversationId.toString()
+      ) {
         setMessages((prev) => [...prev, message]);
       }
     };
@@ -50,6 +57,7 @@ export const useChat = (conversationId) => {
     socket.on("receiveMessage", handleReceiveMessage);
 
     return () => {
+      // notify server we are leaving the room (server will call socket.leave)
       socket.emit("leaveConversation", conversationId);
       socket.off("receiveMessage", handleReceiveMessage);
     };

@@ -49,6 +49,14 @@ const initSocket = (server) => {
       socket.join(conversationId);
     });
 
+    socket.on("leaveConversation", (conversationId) => {
+      try {
+        socket.leave(conversationId);
+      } catch (err) {
+        console.error("Error leaving conversation room:", err);
+      }
+    });
+
     socket.on("newMessage", (message) => {
       socket.to(message.conversation).emit("receiveMessage", message);
     });
