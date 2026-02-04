@@ -56,7 +56,7 @@ const ChatWindow = ({ conversation }) => {
       </div>
 
       {/* ✍️ Input */}
-      <MessageInput conversationId={conversation._id} onSend={sendNewMessage} />
+      <MessageInput onSend={sendNewMessage} />
     </div>
   );
 };
