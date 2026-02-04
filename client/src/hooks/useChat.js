@@ -60,6 +60,10 @@ export const useChat = (conversationId) => {
     if (!conversationId || !token) return;
 
     try {
+      console.log("📤 Sending message with:", {
+        conversationId,
+        text,
+      });
       const { data } = await sendMessage({ conversationId, text });
 
   console.log("📤 Sent message:", data.data);
