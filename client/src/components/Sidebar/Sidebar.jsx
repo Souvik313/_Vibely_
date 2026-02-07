@@ -115,7 +115,7 @@ const Sidebar = () => {
           {followerData.map(follower => (
             <div className="follower-details" key={follower._id}>
               <div className="follower-profile">
-                <Link to={`/profile/${follower._id}`}>
+                <Link to={`/profile/${follower.follower._id}`}>
                   {follower.follower?.profilePicture && (<img src={follower.follower.profilePicture} alt="" className="profile" />)}
                   <span className="name">{follower.follower.name}</span>
                 </Link>
