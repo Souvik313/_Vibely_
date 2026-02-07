@@ -1,4 +1,4 @@
-import './PostKeleton.css';
+import './PostSkeleton.css';
 const PostSkeleton = () => {
   return (
     <div className="post-skeleton">
