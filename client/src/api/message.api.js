@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/v1",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
 });
 
@@ -9,7 +9,7 @@ export const getMessages = (conversationId) =>
   API.get(`/messages/${conversationId}`);
 
 export const sendMessage = (data) =>
-  API.post("/messages/", data,
+  API.post("/api/v1/messages", data,
     {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`,
