@@ -1,6 +1,7 @@
 import { useState , useEffect } from "react";
 import {useFetchPosts} from '../../hooks/useFetchPosts.js';
 import { fetchUser } from "../../hooks/useFetchUser.js";
+import PostSkeleton from "../PostSkeleton/PostSkeleton.jsx";
 import { Link , useParams } from "react-router-dom";
 import './Body.css';
 
@@ -30,9 +31,17 @@ const Body = ({searchQuery}) => {
         return url;
     }
 };
-    if(loading) return <div>Loading...</div>
-    if(error) return <div>Error loading posts!</div>
-    if(!allPosts) return <div>No posts have been made yet</div>
+    if(loading) {
+        return (
+            <div className="feed">
+            {[...Array(3)].map((_, i) => (
+                <PostSkeleton key={i} />
+            ))}
+            </div>
+            );
+        }
+    if(error) return <div className="error-loading">Error loading posts!</div>
+    if(!allPosts || allPosts.length === 0) return <div className="no-posts">No posts have been made yet 👀</div>
 
     const normalizedQuery = searchQuery.trim().toLowerCase();
     const filteredPosts = 
