@@ -56,7 +56,7 @@ export const getCommentsForPost = async(req , res , next) => {
             })
         }
 
-        const comments = await Comment.find({ post: postId })
+        const comments = await Comment.find({ post: postId, parentComment: null })
             .populate("user", "name profilePicture")
             .sort({ createdAt: -1 });
 
@@ -313,6 +313,7 @@ export const replyToComment = async(req , res , next) => {
             user: user,
             post: parentComment.post, // ensure reply stays linked to same post
             text,
+            parentComment: parentCommentId,
             likes: [],
             dislikes: [],
             replies: []
