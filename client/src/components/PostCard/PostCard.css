@@ -687,9 +687,10 @@
 
 /* Delete Post Button */
 .delete-post-btn {
-  width: 100%;
-  margin-top: 20px;
-  padding: 12px;
+  width: auto;
+  max-width: 200px;
+  margin: 20px auto 0;
+  padding: 10px 24px;
   background: var(--accent-red);
   color: white;
   border: none;
@@ -698,6 +699,7 @@
   font-size: 14px;
   cursor: pointer;
   transition: var(--transition);
+  display: block;
 }
 
 .delete-post-btn:hover {
